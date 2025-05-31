@@ -13,6 +13,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
 import Link from "next/link";
 import { Markdown } from "@/components/markdown";
+import imageSource from "@/app/(preview)/atendente-suporte-ti.webp";
+import Image from "next/image";
 
 const getTextFromDataUrl = (dataUrl: string) => {
   const base64 = dataUrl.split(",")[1];
@@ -147,7 +149,7 @@ export default function Home() {
 
     <div>
       <div className="bg-white">
-        <img src="https://app.affairdetect.com/wp-content/uploads/2024/11/atendente-suporte-ti-1024x683.webp" alt="" />
+        <Image src={imageSource} alt="Atendente Suporte TI" className="w-full h-auto object-cover" />
         <div className="text-center mt-4">
           <h1 className="text-2xl font-bold text-zinc-800">
             Olá! 👋 Precisa de ajuda?
@@ -192,7 +194,7 @@ export default function Home() {
                 >
                   <div className="size-[24px] flex flex-col justify-center items-center flex-shrink-0 text-zinc-400">
                     {message.role === "assistant" ? <BotIcon /> : <UserIcon />}
-
+                  </div>
                   <div className="flex flex-col gap-1">
                     <div className="text-zinc-800 dark:text-zinc-300 flex flex-col gap-4">
                       <Markdown>{message.content}</Markdown>
