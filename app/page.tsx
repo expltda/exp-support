@@ -9,7 +9,6 @@ import { toast } from "sonner"
 import Image from "next/image"
 import { BotIcon, AttachmentIcon, SendIcon, HelpCircleIcon, SettingsIcon, CreditCardIcon } from "@/components/icons"
 import { Markdown } from "@/components/markdown"
-import { MobileHeader } from "@/components/mobile-header"
 import { ChatHeader } from "@/components/chat-header"
 import { SupportBanner } from "@/components/support-banner"
 import { Footer } from "@/components/footer"
@@ -45,7 +44,7 @@ const supportOptions = [
 ]
 
 export default function SupportPage() {
-  const { messages, input, handleSubmit, handleInputChange, isLoading, append } = useChat({
+  const { messages, input, handleSubmit, handleInputChange, isLoading } = useChat({
   onError: () => toast.error("Erro ao conectar com o suporte. Tente novamente."),
 })
 
@@ -92,12 +91,12 @@ export default function SupportPage() {
 
   if (showChat && selectedOption) {
     return (
-      <div className="min-h-screen bg-green-500 flex flex-col">
+      <div className="min-h-screen bg-orange-500 flex flex-col">
         <ChatHeader onBack={() => setShowChat(false)} title="Chat com Atendente - AppSpy" subtitle="Online agora" />
         <SupportBanner type={selectedOption.type} />
 
         {/* Chat Area */}
-        <div className="flex-1 bg-green-500 px-4 pb-4">
+        <div className="flex-1 bg-orange-500 px-4 pb-4">
           <div className="bg-white rounded-lg h-full flex flex-col overflow-hidden">
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -110,7 +109,7 @@ export default function SupportPage() {
                   transition={{ delay: index * 0.1 }}
                 >
                   {message.role === "assistant" && (
-                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
                       {message.id === "initial-message" ? (
                         <Image
                           src="/atendente-suporte-ti.webp"
@@ -126,7 +125,7 @@ export default function SupportPage() {
                   )}
                   <div
                     className={`max-w-[80%] rounded-lg px-4 py-3 ${
-                      message.role === "user" ? "bg-gray-100 text-gray-900" : "bg-green-500 text-white"
+                      message.role === "user" ? "bg-gray-100 text-gray-900" : "bg-orange-500 text-white"
                     }`}
                   >
                     <Markdown>{message.content}</Markdown>
@@ -141,7 +140,7 @@ export default function SupportPage() {
 
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center overflow-hidden">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
                     <Image
                       src="/atendente-suporte-ti.webp"
                       alt="Ana Lucia"
@@ -150,7 +149,7 @@ export default function SupportPage() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="bg-green-500 rounded-lg px-4 py-3 text-white">
+                  <div className="bg-orange-500 rounded-lg px-4 py-3 text-white">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
                       <div
@@ -204,7 +203,7 @@ export default function SupportPage() {
                 <button
                   type="submit"
                   disabled={!input.trim() && !files}
-                  className="bg-green-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-lg px-4 py-2 transition-colors"
+                  className="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-lg px-4 py-2 transition-colors"
                 >
                   <SendIcon className="w-5 h-5" />
                 </button>
@@ -220,7 +219,6 @@ export default function SupportPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <MobileHeader />
 
       {/* Header with Support Agent Image */}
       <div className="bg-white flex-1">
