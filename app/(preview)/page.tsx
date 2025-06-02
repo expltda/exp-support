@@ -160,7 +160,7 @@ export default function Home() {
         </div>
       </div>
       <div
-        className="flex flex-row justify-center h-[60vh] pb-20  bg-white dark:bg-zinc-900"
+        className="flex flex-row justify-center h-[60vh] pb-4  bg-white dark:bg-zinc-900"
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -183,20 +183,20 @@ export default function Home() {
 
         <div className="flex flex-col justify-between gap-4">
           {messages.length > 0 ? (
-            <div className="flex flex-col gap-2 h-full w-dvw items-center overflow-y-scroll" >
+            <div className="flex flex-col gap-2 h-full w-dvw items-center overflow-y-scroll " >
               {messages.map((message, index) => (
                 <motion.div
                   key={message.id}
-                  className={`flex flex-row gap-2 px-4 w-full md:w-[500px] md:px-0 ${index === 0 ? "pt-20" : ""
+                  className={`flex flex-row gap-2 px-4 w-full max-w-[90%] rounded-md  md:w-[500px] bg-[#5bc234] md:px-0 ${index === 0 ? "pt-1" : ""
                     }`}
                   initial={{ y: 5, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                 >
-                  <div className="size-[24px] flex flex-col justify-center items-center flex-shrink-0 text-zinc-400">
+                  <div className="size-[24px] flex flex-col justify-center items-center flex-shrink-0 text-black">
                     {message.role === "assistant" ? <BotIcon /> : <UserIcon />}
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <div className="text-zinc-800 dark:text-zinc-300 flex flex-col gap-4">
+                  <div className="flex flex-col gap-1 ">
+                    <div className="text-black dark:text-zinc-300 flex flex-col gap-4">
                       <Markdown>{message.content}</Markdown>
                     </div>
                     <div className="flex flex-row gap-2">
@@ -323,28 +323,54 @@ export default function Home() {
               onChange={handleFileChange}
             />
 
-            <div className="flex items-center w-full md:max-w-[500px] max-w-[calc(100dvw-32px)] bg-zinc-100 dark:bg-zinc-700 rounded-full px-4 py-2">
-              {/* Upload Button */}
-              <button
-                type="button"
-                onClick={handleUploadClick}
-                className="text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-zinc-100 focus:outline-none mr-3"
-                aria-label="Upload Files"
-              >
-                <span className="w-5 h-5">
-                  <AttachmentIcon aria-hidden="true" />
-                </span>
-              </button>
+            <div className="flex items-center w-full md:max-w-[500px] max-w-[calc(100dvw-32px)]">
+              {/* Input + Upload */}
+              <div className="flex flex-1 items-center bg-white dark:bg-zinc-800 rounded-lg px-4 py-4 shadow border border-zinc-200 dark:border-zinc-700">
+                {/* Upload Button */}
+                <button
+                  type="button"
+                  onClick={handleUploadClick}
+                  className="text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-zinc-100 focus:outline-none mr-2"
+                  aria-label="Upload Files"
+                >
+                  <span className="w-5 h-5">
+                    <AttachmentIcon aria-hidden="true" />
+                  </span>
+                </button>
 
-              {/* Message Input */}
-              <input
-                ref={inputRef}
-                className="bg-transparent flex-grow outline-none text-zinc-800 dark:text-zinc-300 placeholder-zinc-400"
-                placeholder="Enviar uma mensagem..."
-                value={input}
-                onChange={handleInputChange}
-                onPaste={handlePaste}
-              />
+                {/* Message Input */}
+                <input
+                  ref={inputRef}
+                  className="bg-transparent flex-grow outline-none text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 px-2 h-12 text-base"
+                  placeholder="Mensagem"
+                  value={input}
+                  onChange={handleInputChange}
+                  onPaste={handlePaste}
+                  style={{ fontSize: "18px" }}
+                />
+              </div>
+              {/* Send Button OUTSIDE input */}
+              <button
+                type="submit"
+                className="ml-2 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full w-10 h-10 transition-colors duration-150"
+                aria-label="Enviar"
+              >
+
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 12l14-5-5 14-2.5-6.5L5 12z"
+                />
+              </svg>
+              </button>
             </div>
           </form>
         </div>
