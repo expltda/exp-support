@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { toast } from "sonner"
 import Image from "next/image"
-import { BotIcon, AttachmentIcon, SendIcon, HelpCircleIcon, SettingsIcon, CreditCardIcon } from "@/components/icons"
+import { BotIcon, AttachmentIcon, SendIcon, HelpCircleIcon, SettingsIcon, CreditCardIcon, UserIcon } from "@/components/icons"
 import { Markdown } from "@/components/markdown"
 import { SupportBanner } from "@/components/support-banner"
 import { Footer } from "@/components/footer"
@@ -135,7 +135,7 @@ export default function SupportPage() {
                 </div>
                 {message.role === "user" && (
                 <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <BotIcon className="w-4 h-4 text-white" />
+                  <UserIcon className="w-4 h-4 text-white" />
                 </div>
                 )}
               </motion.div>
