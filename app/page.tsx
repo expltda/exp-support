@@ -9,7 +9,6 @@ import { toast } from "sonner"
 import Image from "next/image"
 import { BotIcon, AttachmentIcon, SendIcon, HelpCircleIcon, SettingsIcon, CreditCardIcon } from "@/components/icons"
 import { Markdown } from "@/components/markdown"
-import { ChatHeader } from "@/components/chat-header"
 import { SupportBanner } from "@/components/support-banner"
 import { Footer } from "@/components/footer"
 
@@ -55,8 +54,6 @@ export default function SupportPage() {
     ],
 })
 
-  const [showChat, setShowChat] = useState(true)
-  const [selectedOption, setSelectedOption] = useState<(typeof supportOptions)[0] | null>(null)
   const [files, setFiles] = useState<FileList | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -69,11 +66,6 @@ export default function SupportPage() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
-
-  const handleOptionClick = (option: (typeof supportOptions)[0]) => {
-    setSelectedOption(option)
-    setShowChat(true)
-  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files
