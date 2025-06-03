@@ -144,13 +144,13 @@ export default function SupportPage() {
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
               <div className="flex gap-3 justify-start">
                 <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center overflow-hidden">
-                <Image
-                  src="/atendente-suporte-ti.webp"
-                  alt="Ana Lucia"
-                  width={32}
-                  height={32}
-                  className="object-cover"
-                />
+                 <Image
+                    src="/support.png"
+                    alt="Ana Lucia"
+                    width={32}
+                    height={32}
+                    className="object-cover"
+                  />
                 </div>
                 <div className="bg-green-500 rounded-lg px-4 py-3 text-white">
                 <div className="flex space-x-1">
