@@ -116,7 +116,13 @@ export default function SupportPage() {
                     className="object-cover"
                   />
                   ) : (
-                  <BotIcon className="w-4 h-4 text-white" />
+                  <Image
+                    src="/support.png"
+                    alt="Ana Lucia"
+                    width={32}
+                    height={32}
+                    className="object-cover"
+                  />
                   )}
                 </div>
                 )}
