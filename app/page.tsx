@@ -48,7 +48,7 @@ export default function SupportPage() {
   onError: () => toast.error("Erro ao conectar com o suporte. Tente novamente."),
 })
 
-  const [showChat, setShowChat] = useState(false)
+  const [showChat, setShowChat] = useState(true)
   const [selectedOption, setSelectedOption] = useState<(typeof supportOptions)[0] | null>(null)
   const [files, setFiles] = useState<FileList | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -89,80 +89,78 @@ export default function SupportPage() {
     fileInputRef.current?.click()
   }
 
-  if (showChat && selectedOption) {
-    return (
+      return (
       <div className="min-h-screen bg-orange-500 flex flex-col">
-        <ChatHeader onBack={() => setShowChat(false)} title="Chat com Atendente - AppSpy" subtitle="Online agora" />
-        <SupportBanner type={selectedOption.type} />
+        <SupportBanner type={supportOptions[2].type} />
 
         {/* Chat Area */}
         <div className="flex-1 bg-orange-500 px-4 pb-4">
           <div className="bg-white rounded-lg h-full flex flex-col overflow-hidden">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[350px] max-h-[350px] overflow-auto">
               {messages.map((message, index) => (
-                <motion.div
-                  key={message.id}
-                  className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`}
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
+              <motion.div
+                key={message.id}
+                className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {message.role === "assistant" && (
+                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  {message.id === "initial-message" ? (
+                  <Image
+                    src="/atendente-suporte-ti.webp"
+                    alt="Ana Lucia"
+                    width={32}
+                    height={32}
+                    className="object-cover"
+                  />
+                  ) : (
+                  <BotIcon className="w-4 h-4 text-white" />
+                  )}
+                </div>
+                )}
+                <div
+                className={`max-w-[80%] rounded-lg px-4 py-3 ${
+                  message.role === "user" ? "bg-gray-100 text-gray-900" : "bg-orange-500 text-white"
+                }`}
                 >
-                  {message.role === "assistant" && (
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
-                      {message.id === "initial-message" ? (
-                        <Image
-                          src="/atendente-suporte-ti.webp"
-                          alt="Ana Lucia"
-                          width={32}
-                          height={32}
-                          className="object-cover"
-                        />
-                      ) : (
-                        <BotIcon className="w-4 h-4 text-white" />
-                      )}
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[80%] rounded-lg px-4 py-3 ${
-                      message.role === "user" ? "bg-gray-100 text-gray-900" : "bg-orange-500 text-white"
-                    }`}
-                  >
-                    <Markdown>{message.content}</Markdown>
-                  </div>
-                  {message.role === "user" && (
-                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <BotIcon className="w-4 h-4 text-white" />
-                    </div>
-                  )}
-                </motion.div>
+                <Markdown>{message.content}</Markdown>
+                </div>
+                {message.role === "user" && (
+                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <BotIcon className="w-4 h-4 text-white" />
+                </div>
+                )}
+              </motion.div>
               ))}
 
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
-                <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
-                    <Image
-                      src="/atendente-suporte-ti.webp"
-                      alt="Ana Lucia"
-                      width={32}
-                      height={32}
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="bg-orange-500 rounded-lg px-4 py-3 text-white">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-                      <div
-                        className="w-2 h-2 bg-white rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-white rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                    </div>
-                  </div>
+              <div className="flex gap-3 justify-start">
+                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
+                <Image
+                  src="/atendente-suporte-ti.webp"
+                  alt="Ana Lucia"
+                  width={32}
+                  height={32}
+                  className="object-cover"
+                />
                 </div>
+                <div className="bg-orange-500 rounded-lg px-4 py-3 text-white">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                  <div
+                  className="w-2 h-2 bg-white rounded-full animate-bounce"
+                  style={{ animationDelay: "0.1s" }}
+                  ></div>
+                  <div
+                  className="w-2 h-2 bg-white rounded-full animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                  ></div>
+                </div>
+                </div>
+              </div>
               )}
               <div ref={messagesEndRef} />
             </div>
@@ -215,74 +213,5 @@ export default function SupportPage() {
         <Footer />
       </div>
     )
-  }
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-
-      {/* Header with Support Agent Image */}
-      <div className="bg-white flex-1">
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <div className="text-center">
-            <div className="mb-6">
-              <Image
-                src="/atendente-suporte-ti.webp"
-                alt="Atendente de Suporte"
-                width={200}
-                height={200}
-                className="mx-auto rounded-full object-cover"
-              />
-            </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Olá! 👋 Precisa de ajuda?</h1>
-            <p className="text-lg text-gray-600">
-              Como posso ajudar você hoje? Nosso suporte está pronto para atender.
-            </p>
-          </div>
-        </div>
-
-        {/* Support Options */}
-        <div className="max-w-4xl mx-auto px-4 pb-8">
-          <div className="grid md:grid-cols-3 gap-6">
-            {supportOptions.map((option, index) => (
-              <motion.div
-                key={option.id}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => handleOptionClick(option)}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-all duration-200 hover:scale-105"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-12 h-12 ${option.color} rounded-lg flex items-center justify-center`}>
-                    <option.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">{option.title}</h3>
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed">{option.description}</p>
-                <div className="mt-4 flex items-center text-sm text-gray-500">
-                  <span>Clique para iniciar o atendimento</span>
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Additional Info */}
-          <div className="mt-12 text-center">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Suporte 24/7 Disponível</h3>
-              <p className="text-gray-600">
-                Nossa equipe está sempre pronta para ajudar você com qualquer dúvida sobre o AppSpy. Escolha uma das
-                opções acima para começar uma conversa personalizada.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Footer />
-    </div>
-  )
 }
