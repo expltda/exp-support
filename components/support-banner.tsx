@@ -7,7 +7,7 @@ interface SupportBannerProps {
 
 export function SupportBanner({ type }: SupportBannerProps) {
   return (
-    <div className="bg-orange-500 text-white">
+    <div className="bg-green-500 text-white">
       <div className="px-4 py-2 flex justify-between items-center text-sm">
         <span className="font-semibold">{type.toUpperCase()}</span>
       </div>

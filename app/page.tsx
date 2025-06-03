@@ -46,6 +46,13 @@ const supportOptions = [
 export default function SupportPage() {
   const { messages, input, handleSubmit, handleInputChange, isLoading } = useChat({
   onError: () => toast.error("Erro ao conectar com o suporte. Tente novamente."),
+  initialMessages: [
+      {
+        id: "initial-message",
+        role: "assistant",
+        content: "Olá, sou Ana Lucia atendente do AppSpy Pro, como posso te ajudar hoje?",
+      },
+    ],
 })
 
   const [showChat, setShowChat] = useState(true)
@@ -90,11 +97,11 @@ export default function SupportPage() {
   }
 
       return (
-      <div className="min-h-screen bg-orange-500 flex flex-col">
+      <div className="min-h-screen bg-green-500 flex flex-col">
         <SupportBanner type={supportOptions[2].type} />
 
         {/* Chat Area */}
-        <div className="flex-1 bg-orange-500 px-4 pb-4">
+        <div className="flex-1 bg-green-500 px-4 pb-4">
           <div className="bg-white rounded-lg h-full flex flex-col overflow-hidden">
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[350px] max-h-[350px] overflow-auto">
@@ -107,10 +114,10 @@ export default function SupportPage() {
                 transition={{ delay: index * 0.1 }}
               >
                 {message.role === "assistant" && (
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
                   {message.id === "initial-message" ? (
                   <Image
-                    src="/atendente-suporte-ti.webp"
+                    src="/support.png"
                     alt="Ana Lucia"
                     width={32}
                     height={32}
@@ -123,7 +130,7 @@ export default function SupportPage() {
                 )}
                 <div
                 className={`max-w-[80%] rounded-lg px-4 py-3 ${
-                  message.role === "user" ? "bg-gray-100 text-gray-900" : "bg-orange-500 text-white"
+                  message.role === "user" ? "bg-gray-100 text-gray-900" : "bg-green-500 text-white"
                 }`}
                 >
                 <Markdown>{message.content}</Markdown>
@@ -138,7 +145,7 @@ export default function SupportPage() {
 
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
               <div className="flex gap-3 justify-start">
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center overflow-hidden">
+                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center overflow-hidden">
                 <Image
                   src="/atendente-suporte-ti.webp"
                   alt="Ana Lucia"
@@ -147,7 +154,7 @@ export default function SupportPage() {
                   className="object-cover"
                 />
                 </div>
-                <div className="bg-orange-500 rounded-lg px-4 py-3 text-white">
+                <div className="bg-green-500 rounded-lg px-4 py-3 text-white">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
                   <div
@@ -201,7 +208,7 @@ export default function SupportPage() {
                 <button
                   type="submit"
                   disabled={!input.trim() && !files}
-                  className="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-lg px-4 py-2 transition-colors"
+                  className="bg-green-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-lg px-4 py-2 transition-colors"
                 >
                   <SendIcon className="w-5 h-5" />
                 </button>
